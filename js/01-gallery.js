@@ -36,14 +36,20 @@ function openOriginal(e) {
   const original = basicLightbox.create(
     `<img src="${e.target.dataset.source}">`
   );
-  document.addEventListener("keydown", onEscKeyPress);
 
   original.show();
 
+  document.addEventListener("keydown", onEscKeyPress);
+  original.element().addEventListener("click", closeOriginal);
+
   function onEscKeyPress(e) {
     if (e.code === "Escape") {
-      original.close();
-      document.removeEventListener("keydown", onEscKeyPress);
+      closeOriginal();
     }
+  }
+
+  function closeOriginal() {
+    original.close();
+    document.removeEventListener("keydown", onEscKeyPress);
   }
 }
